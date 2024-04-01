@@ -27,17 +27,19 @@ class HomeTableViewCell: UITableViewCell {
     setupConstraints()
   }
   
-  func configure(_ dailyPlan: DailyPlan){
-    var text = ""
-    let book = dailyPlan.plan1.book.rawValue
-    let firstChapter = String(dailyPlan.plan1.firstChapter.chapter)
-    text = book + " " + firstChapter
-    
-    if let endingChapter = dailyPlan.plan1.endingChapter?.chapter {
-     text += " - " + String(endingChapter)
-    }
-    
-    titleLabel.text = text
+  func configure(_ dailyPlan: DailyReading){
+      let section1 = dailyPlan.section1
+      let section2 = dailyPlan.section2
+//    var text = ""
+//    let book = dailyPlan.plan1.book.rawValue
+//    let firstChapter = String(dailyPlan.plan1.firstChapter.chapter)
+//    text = book + " " + firstChapter
+//    
+//    if let endingChapter = dailyPlan.plan1.endingChapter?.chapter {
+//     text += " - " + String(endingChapter)
+//    }
+//    
+      titleLabel.text = section1.book + " " + String(section1.firstChapter) + " " + section2.book + " " + String(section2.firstChapter)
   }
   
   private func setupComponents() {

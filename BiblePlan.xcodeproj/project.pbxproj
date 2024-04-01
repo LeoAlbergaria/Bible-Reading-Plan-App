@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D5248A32BBB17BC0082FC70 /* readingPlan.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5D5248A22BBB17BC0082FC70 /* readingPlan.csv */; };
 		5D8FCCF52B7D5D7C00CD39F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FCCF42B7D5D7C00CD39F0 /* AppDelegate.swift */; };
 		5D8FCCF72B7D5D7C00CD39F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FCCF62B7D5D7C00CD39F0 /* SceneDelegate.swift */; };
 		5D8FCCF92B7D5D7C00CD39F0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FCCF82B7D5D7C00CD39F0 /* HomeViewController.swift */; };
@@ -16,10 +17,11 @@
 		5D8FCD0E2B7D62CF00CD39F0 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FCD0D2B7D62CF00CD39F0 /* UIColor+Extension.swift */; };
 		5D8FCD122B7DCC9F00CD39F0 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FCD112B7DCC9F00CD39F0 /* HomeTableViewCell.swift */; };
 		5D8FCD142B7DD14100CD39F0 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FCD132B7DD14100CD39F0 /* HomeViewModel.swift */; };
-		5D8FCD162B7F9D6700CD39F0 /* ChapterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FCD152B7F9D6700CD39F0 /* ChapterModel.swift */; };
+		5D8FCD162B7F9D6700CD39F0 /* ReadingPlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FCD152B7F9D6700CD39F0 /* ReadingPlanModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D5248A22BBB17BC0082FC70 /* readingPlan.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readingPlan.csv; sourceTree = "<group>"; };
 		5D8FCCF12B7D5D7C00CD39F0 /* BiblePlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BiblePlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D8FCCF42B7D5D7C00CD39F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D8FCCF62B7D5D7C00CD39F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,7 +33,7 @@
 		5D8FCD0D2B7D62CF00CD39F0 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5D8FCD112B7DCC9F00CD39F0 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		5D8FCD132B7DD14100CD39F0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		5D8FCD152B7F9D6700CD39F0 /* ChapterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterModel.swift; sourceTree = "<group>"; };
+		5D8FCD152B7F9D6700CD39F0 /* ReadingPlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingPlanModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		5D8FCCF32B7D5D7C00CD39F0 /* BiblePlan */ = {
 			isa = PBXGroup;
 			children = (
+				5D5248A22BBB17BC0082FC70 /* readingPlan.csv */,
 				5D8FCD0F2B7D635E00CD39F0 /* Modules */,
 				5D8FCD0C2B7D626B00CD39F0 /* Extensions */,
 				5D8FCCF42B7D5D7C00CD39F0 /* AppDelegate.swift */,
@@ -98,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				5D8FCD082B7D611800CD39F0 /* Home */,
-				5D8FCD152B7F9D6700CD39F0 /* ChapterModel.swift */,
+				5D8FCD152B7F9D6700CD39F0 /* ReadingPlanModel.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 			files = (
 				5D8FCD012B7D5D7E00CD39F0 /* LaunchScreen.storyboard in Resources */,
 				5D8FCCFE2B7D5D7E00CD39F0 /* Assets.xcassets in Resources */,
+				5D5248A32BBB17BC0082FC70 /* readingPlan.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +190,7 @@
 				5D8FCD142B7DD14100CD39F0 /* HomeViewModel.swift in Sources */,
 				5D8FCD0B2B7D614C00CD39F0 /* HomeView.swift in Sources */,
 				5D8FCCF52B7D5D7C00CD39F0 /* AppDelegate.swift in Sources */,
-				5D8FCD162B7F9D6700CD39F0 /* ChapterModel.swift in Sources */,
+				5D8FCD162B7F9D6700CD39F0 /* ReadingPlanModel.swift in Sources */,
 				5D8FCCF72B7D5D7C00CD39F0 /* SceneDelegate.swift in Sources */,
 				5D8FCD0E2B7D62CF00CD39F0 /* UIColor+Extension.swift in Sources */,
 			);
