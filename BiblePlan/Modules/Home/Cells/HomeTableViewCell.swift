@@ -9,6 +9,8 @@ import UIKit
 
 class HomeTableViewCell: UITableViewCell {
     
+    // MARK: - Components
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -47,14 +49,7 @@ class HomeTableViewCell: UITableViewCell {
         setupConstraints()
     }
     
-    func configure(_ dailyPlan: DailyReading){
-        let section1 = dailyPlan.section1
-        let section2 = dailyPlan.section2
-        
-        titleLabel.text = section1.book + " " + section1.firstChapter + " | " + section2.book + " " + section2.firstChapter
-        
-        iconImageView.image = dailyPlan.isReaded ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
-    }
+    // MARK: - Setup
     
     private func setupComponents() {
         addSubview(mainStackView)
@@ -70,6 +65,15 @@ class HomeTableViewCell: UITableViewCell {
             
             heightAnchor.constraint(equalToConstant: 40)
         ])
+    }
+    
+    func configure(_ dailyPlan: DailyReading){
+        let section1 = dailyPlan.section1
+        let section2 = dailyPlan.section2
+        
+        titleLabel.text = "\(section1) | \(section2)"
+        
+        iconImageView.image = dailyPlan.isReaded ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
     }
 }
 

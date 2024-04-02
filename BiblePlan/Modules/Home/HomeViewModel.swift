@@ -15,9 +15,15 @@ protocol HomeViewModelProtocol: AnyObject {
     var readingPlan: ReadingPlan { get set }
 }
 
+// MARK: - Properties
+
 class HomeViewModel: HomeViewModelProtocol {
     var readingPlan: ReadingPlan = []
-    
+}
+
+// MARK: - Public Functions
+
+extension HomeViewModel {
     func loadData(){
         if let readingPlan = UserDefaults.getReadingPlan() {
             self.readingPlan = readingPlan
@@ -63,5 +69,3 @@ class HomeViewModel: HomeViewModelProtocol {
         return readingPlan.first(where: { $0.isReaded == false })
     }
 }
-
-

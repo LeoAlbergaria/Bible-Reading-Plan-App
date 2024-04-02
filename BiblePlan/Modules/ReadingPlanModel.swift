@@ -21,8 +21,16 @@ struct DailyReading: Codable {
     }
 }
 
-struct BibleSection: Codable {
+struct BibleSection: Codable, CustomStringConvertible  {
     let book: String
     let firstChapter: String
     let lastChapter: String?
+    
+    var description: String {
+        var text = "\(book) \(firstChapter)"
+        if let lastChapter = lastChapter {
+            text += " - \(lastChapter)"
+        }
+        return text
+    }
 }

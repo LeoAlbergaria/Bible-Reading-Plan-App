@@ -9,14 +9,7 @@ import UIKit
 
 class HomeView: UIView {
     
-//    lazy var nextReadTitleLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "Leitura do Dia"
-//        label.font = .boldSystemFont(ofSize: 32.0)
-//        label.textColor = .black
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
+    // MARK: - Components
     
     lazy var nextReadDateLabel: UILabel = {
         let label = UILabel()
@@ -61,7 +54,6 @@ class HomeView: UIView {
     
     lazy var mainStackView: UIStackView = {
         let view = UIStackView()
-//        view.addArrangedSubview(nextReadTitleLabel)
         view.addArrangedSubview(nextReadCardView)
         view.addArrangedSubview(tableView)
         view.axis = .vertical
@@ -87,6 +79,8 @@ class HomeView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Setup
     
     private func setupComponents() {
         backgroundColor = .background
@@ -116,6 +110,6 @@ class HomeView: UIView {
         let section1 = dailyPlan.section1
         let section2 = dailyPlan.section2
         
-        nextReadLabel.text = section1.book + " " + section1.firstChapter + " | " + section2.book + " " + section2.firstChapter
+        nextReadLabel.text = "\(section1) | \(section2)"
     }
 }
