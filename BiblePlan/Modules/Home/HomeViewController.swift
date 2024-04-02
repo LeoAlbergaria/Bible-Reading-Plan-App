@@ -7,16 +7,16 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDataSource {
+class HomeViewController: UIViewController {
     
     let baseView: HomeView = HomeView()
     var viewModel: HomeViewModelProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
         
         viewModel?.loadData()
+        setup()
     }
     
     func setup(){
@@ -24,7 +24,20 @@ class HomeViewController: UIViewController, UITableViewDataSource {
         baseView.tableView.delegate = self
         baseView.tableView.dataSource = self
         
-        title = "Plan"
+        
+        if let dailyPlan = viewModel?.getDailyPlan() {
+            baseView.configure(dailyPlan: dailyPlan)
+        }
+    }
+}
+
+extension HomeViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        viewModel?.readingPlan[row].isReaded.toggle()
+        let indexPath = IndexPath(item: row, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .top)
+        viewModel?.saveData()
     }
 }
 

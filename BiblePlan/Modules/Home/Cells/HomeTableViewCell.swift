@@ -8,53 +8,66 @@
 import UIKit
 
 class HomeTableViewCell: UITableViewCell {
-  
-  lazy var titleLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
-  
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    setupComponents()
-    setupConstraints()
-  }
-  
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
-    setupComponents()
-    setupConstraints()
-  }
-  
-  func configure(_ dailyPlan: DailyReading){
-      let section1 = dailyPlan.section1
-      let section2 = dailyPlan.section2
-//    var text = ""
-//    let book = dailyPlan.plan1.book.rawValue
-//    let firstChapter = String(dailyPlan.plan1.firstChapter.chapter)
-//    text = book + " " + firstChapter
-//    
-//    if let endingChapter = dailyPlan.plan1.endingChapter?.chapter {
-//     text += " - " + String(endingChapter)
-//    }
-//    
-      titleLabel.text = section1.book + " " + String(section1.firstChapter) + " " + section2.book + " " + String(section2.firstChapter)
-  }
-  
-  private func setupComponents() {
-    backgroundColor = .background
-    addSubview(titleLabel)
-  }
-  
-  private func setupConstraints() {
-    NSLayoutConstraint.activate([
-      titleLabel.topAnchor.constraint(equalTo: topAnchor),
-      titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-      titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-    ])
-  }
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var iconImageView: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "circle")
+        image.tintColor = .main
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    lazy var mainStackView: UIStackView = {
+        let view = UIStackView()
+        view.addArrangedSubview(titleLabel)
+        view.addArrangedSubview(UIView())
+        view.addArrangedSubview(iconImageView)
+        view.axis = .horizontal
+        view.spacing = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupComponents()
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupComponents()
+        setupConstraints()
+    }
+    
+    func configure(_ dailyPlan: DailyReading){
+        let section1 = dailyPlan.section1
+        let section2 = dailyPlan.section2
+        
+        titleLabel.text = section1.book + " " + section1.firstChapter + " | " + section2.book + " " + section2.firstChapter
+        
+        iconImageView.image = dailyPlan.isReaded ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+    }
+    
+    private func setupComponents() {
+        addSubview(mainStackView)
+        backgroundColor = .clear
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+    }
 }
 
 

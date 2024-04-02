@@ -9,42 +9,58 @@ import Foundation
 
 protocol HomeViewModelProtocol: AnyObject {
     func loadData()
+    func saveData()
+    func getDailyPlan() -> DailyReading?
     
-    var readingPlan: ReadingPlan { get }
+    var readingPlan: ReadingPlan { get set }
 }
 
 class HomeViewModel: HomeViewModelProtocol {
     var readingPlan: ReadingPlan = []
     
     func loadData(){
-        guard let fileURL = Bundle.main.url(forResource: "readingPlan", withExtension: "csv") else {
-            fatalError("CSV file not found")
-        }
-        
-        do {
-            let csvString = try String(contentsOf: fileURL)
-            var lines = csvString.components(separatedBy: .newlines)
-            lines.removeFirst()
-            lines.removeLast()
-            
-            for line in lines {
-                let fields = line.components(separatedBy: ",")
-                
-                let book1 = fields[0]
-                guard book1 != "off" else { continue }
-                let chapter1First = Int(fields[1]) ?? 0
-                let chapter1Last = Int(fields[2]) ?? 0
-                let book2 = fields[3]
-                let chapter2 = Int(fields[4]) ?? 0
-                
-                let section1 = BibleSection(book: book1, firstChapter: chapter1First, lastChapter: chapter1Last)
-                let section2 = BibleSection(book: book2, firstChapter: chapter2, lastChapter: nil)
-                let dailyReading = DailyReading(section1: section1, section2: section2)
-                readingPlan.append(dailyReading)
+        if let readingPlan = UserDefaults.getReadingPlan() {
+            self.readingPlan = readingPlan
+        } else {
+            guard let fileURL = Bundle.main.url(forResource: "readingPlan", withExtension: "csv") else {
+                fatalError("CSV file not found")
             }
-        } catch {
-            print("Error reading CSV file: \(error)")
+            
+            do {
+                let csvString = try String(contentsOf: fileURL)
+                var lines = csvString.components(separatedBy: .newlines)
+                lines.removeFirst()
+                lines.removeLast()
+                
+                for line in lines {
+                    let fields = line.components(separatedBy: ",")
+                    
+                    let book1 = fields[0]
+                    guard book1 != "off" else { continue }
+                    let chapter1First = fields[1]
+                    let chapter1Last = fields[2]
+                    let book2 = fields[3]
+                    let chapter2 = fields[4]
+                    
+                    let section1 = BibleSection(book: book1, firstChapter: chapter1First, lastChapter: chapter1Last)
+                    let section2 = BibleSection(book: book2, firstChapter: chapter2, lastChapter: nil)
+                    let dailyReading = DailyReading(section1: section1, section2: section2)
+                    readingPlan.append(dailyReading)
+                }
+                
+                UserDefaults.setReadingPlan(readingPlan)
+            } catch {
+                print("Error reading CSV file: \(error)")
+            }
         }
+    }
+    
+    func saveData(){
+        UserDefaults.setReadingPlan(readingPlan)
+    }
+    
+    func getDailyPlan() -> DailyReading? {
+        return readingPlan.first(where: { $0.isReaded == false })
     }
 }
 
