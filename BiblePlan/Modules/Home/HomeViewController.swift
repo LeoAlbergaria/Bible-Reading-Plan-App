@@ -21,6 +21,7 @@ class HomeViewController: UIViewController {
     
     func setup(){
         view = baseView
+        title = "Bible Plan"
         baseView.tableView.delegate = self
         baseView.tableView.dataSource = self
         
@@ -43,7 +44,9 @@ extension HomeViewController: UITableViewDataSource {
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.readingPlan.count ?? 0
+        let rows = viewModel?.readingPlan.count ?? 0
+        baseView.tableView.heightAnchor.constraint(equalToConstant: CGFloat(rows * 40)).isActive = true
+        return rows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,6 +56,5 @@ extension HomeViewController: UITableViewDelegate {
         cell.selectionStyle = .none
         cell.configure(dailyPlan)
         return cell
-        return UITableViewCell()
     }
 }

@@ -11,6 +11,7 @@ class HomeTableViewCell: UITableViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -66,6 +67,8 @@ class HomeTableViewCell: UITableViewCell {
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }

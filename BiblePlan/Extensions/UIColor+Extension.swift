@@ -51,6 +51,6 @@ extension UIColor {
 }
 
 extension UIColor {
-    static let background = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(hex: "EDE7D9") : UIColor(hex: "1E1E1E")
+    static let background = UIColor(hex: "EDE7D9")
     static let main = UIColor(hex: "D5A021")
 }

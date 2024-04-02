@@ -9,17 +9,19 @@ import UIKit
 
 class HomeView: UIView {
     
-    lazy var nextReadTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Leitura do Dia"
-        label.font = .boldSystemFont(ofSize: 32.0)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+//    lazy var nextReadTitleLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "Leitura do Dia"
+//        label.font = .boldSystemFont(ofSize: 32.0)
+//        label.textColor = .black
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
     
     lazy var nextReadDateLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16.0)
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -28,6 +30,7 @@ class HomeView: UIView {
         let label = UILabel()
         label.textAlignment = . center
         label.font = .boldSystemFont(ofSize: 28.0)
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -52,16 +55,25 @@ class HomeView: UIView {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.isScrollEnabled = false
         return tableView
     }()
     
     lazy var mainStackView: UIStackView = {
         let view = UIStackView()
-        view.addArrangedSubview(nextReadTitleLabel)
+//        view.addArrangedSubview(nextReadTitleLabel)
         view.addArrangedSubview(nextReadCardView)
         view.addArrangedSubview(tableView)
         view.axis = .vertical
         view.spacing = 16
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.addSubview(mainStackView)
+        view.showsVerticalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -78,15 +90,21 @@ class HomeView: UIView {
     
     private func setupComponents() {
         backgroundColor = .background
-        addSubview(mainStackView)
+        addSubview(scrollView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            
+            mainStackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 6),
+            mainStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            mainStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
     }
     
