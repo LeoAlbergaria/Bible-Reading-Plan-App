@@ -20,10 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let viewController = HomeViewController()
         viewController.viewModel = HomeViewModel()
+        viewController.viewModel?.saveData()
         let navigationController = UINavigationController(rootViewController: viewController)
         
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController.navigationBar.tintColor = viewController.traitCollection.userInterfaceStyle == .light ? .black : .white
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

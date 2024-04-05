@@ -105,7 +105,7 @@ class HomeView: UIView {
     func configure(dailyPlan: DailyReading){
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMM"
-        nextReadDateLabel.text = formatter.string(from: Date())
+        nextReadDateLabel.text = formatter.string(from: dailyPlan.date)
         
         let section1 = dailyPlan.section1
         let section2 = dailyPlan.section2

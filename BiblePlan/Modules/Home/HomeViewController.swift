@@ -18,21 +18,31 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel?.loadData()
         setup()
+        
+        viewModel?.loadData(completion: { success in
+            guard success else { return }
+            
+            if let dailyPlan = self.viewModel?.getDailyPlan() {
+                self.baseView.configure(dailyPlan: dailyPlan)
+            }
+            self.baseView.tableView.reloadData()
+        })
     }
     
     func setup(){
         view = baseView
         title = "Bible Plan"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(self.settingsAction))
+        
         baseView.tableView.delegate = self
         baseView.tableView.dataSource = self
-        
-        
-        if let dailyPlan = viewModel?.getDailyPlan() {
-            baseView.configure(dailyPlan: dailyPlan)
-        }
+    }
+    
+    @objc func settingsAction(){
+        let viewController = SettingsViewControler()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -43,7 +53,7 @@ extension HomeViewController: UITableViewDataSource {
         let row = indexPath.row
         viewModel?.readingPlan[row].isReaded.toggle()
         let indexPath = IndexPath(item: row, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .top)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         viewModel?.saveData()
     }
 }
@@ -53,7 +63,7 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let rows = viewModel?.readingPlan.count ?? 0
-        baseView.tableView.heightAnchor.constraint(equalToConstant: CGFloat(rows * 40)).isActive = true
+        baseView.tableView.heightAnchor.constraint(equalToConstant: CGFloat(rows * 60)).isActive = true
         return rows
     }
     

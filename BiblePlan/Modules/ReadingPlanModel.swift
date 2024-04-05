@@ -13,11 +13,13 @@ struct DailyReading: Codable {
     let section1: BibleSection
     let section2: BibleSection
     var isReaded: Bool
+    let date: Date
     
-    init(section1: BibleSection, section2: BibleSection, isReaded: Bool = false) {
+    init(section1: BibleSection, section2: BibleSection, isReaded: Bool = false, date: Date) {
         self.section1 = section1
         self.section2 = section2
         self.isReaded = isReaded
+        self.date = date
     }
 }
 
