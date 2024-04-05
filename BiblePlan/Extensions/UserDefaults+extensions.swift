@@ -9,6 +9,7 @@ import Foundation
 
 // Keys
 private let keyReadingPlan = "keyReadingPlan"
+private let keyReadingPlanSettings = "keyReadingPlanSettings"
 
 extension UserDefaults {
     
@@ -40,10 +41,29 @@ extension UserDefaults {
     
     static func getReadingPlan() -> ReadingPlan? {
         do {
-              return try UserDefaults.standard.get(objectType: ReadingPlan.self, forKey: keyReadingPlan)
-            } catch let error {
-              print(error)
-              return nil
-            }
+            return try UserDefaults.standard.get(objectType: ReadingPlan.self, forKey: keyReadingPlan)
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+    
+    // - Settings
+    static func setSettings(_ settings: ReadingPlanSettings) {
+        do {
+            try UserDefaults.standard.set(object: settings, forKey: keyReadingPlanSettings)
+            UserDefaults.standard.synchronize()
+        } catch let error {
+            print(error)
+        }
+    }
+    
+    static func getSettings() -> ReadingPlanSettings? {
+        do {
+            return try UserDefaults.standard.get(objectType: ReadingPlanSettings.self, forKey: keyReadingPlanSettings)
+        } catch let error {
+            print(error)
+            return nil
+        }
     }
 }

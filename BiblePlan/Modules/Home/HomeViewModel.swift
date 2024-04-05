@@ -10,6 +10,7 @@ import Foundation
 protocol HomeViewModelProtocol: AnyObject {
     func loadData(completion: @escaping (Bool) -> Void)
     func saveData()
+    func reloadData(completion: @escaping (Bool) -> Void)
     func getDailyPlan() -> DailyReading?
     
     var readingPlan: ReadingPlan { get set }
@@ -19,11 +20,6 @@ protocol HomeViewModelProtocol: AnyObject {
 
 class HomeViewModel: HomeViewModelProtocol {
     var readingPlan: ReadingPlan = []
-    let startingDate: Date?
-    
-    init(startingDate: Date? = nil) {
-        self.startingDate = startingDate
-    }
 }
 
 // MARK: - Public Functions
@@ -41,6 +37,31 @@ extension HomeViewModel {
     
     func saveData(){
         UserDefaults.setReadingPlan(readingPlan)
+    }
+    
+    func reloadData(completion: @escaping (Bool) -> Void){
+        var startingDate = UserDefaults.getSettings()?.initialDate ?? Date()
+        var readingPlanAux: ReadingPlan = []
+        
+        let settings = UserDefaults.getSettings()
+        
+        readingPlan.forEach({
+            var dailyPlan = $0
+            dailyPlan.date = startingDate
+            readingPlanAux.append(dailyPlan)
+            
+            startingDate = Calendar.current.date(byAdding: .day, value: 1, to: startingDate) ?? Date()
+            var weekday = Calendar.current.component(.weekday, from: startingDate)
+            while((settings?.skipDays ?? []).contains(weekday)){
+                startingDate = Calendar.current.date(byAdding: .day, value: 1, to: startingDate) ?? Date()
+                
+                weekday = Calendar.current.component(.weekday, from: startingDate)
+            }
+        })
+        
+        readingPlan = readingPlanAux
+        saveData()
+        completion(true)
     }
     
     func getDailyPlan() -> DailyReading? {
@@ -62,7 +83,8 @@ extension HomeViewModel {
             lines.removeFirst()
             lines.removeLast()
             
-            var currentDate = Date()
+            let settings = UserDefaults.getSettings()
+            var startingDate = settings?.initialDate ?? Date()
             
             for line in lines {
                 let fields = line.components(separatedBy: ",")
@@ -74,16 +96,18 @@ extension HomeViewModel {
                 let book2 = fields[3]
                 let chapter2 = fields[4]
                 
+                let weekday = Calendar.current.component(.weekday, from: startingDate)
+                if((settings?.skipDays ?? []).contains(weekday)){
+                    startingDate = Calendar.current.date(byAdding: .day, value: 1, to: startingDate) ?? Date()
+                }
+                
                 
                 let section1 = BibleSection(book: book1, firstChapter: chapter1First, lastChapter: chapter1Last)
                 let section2 = BibleSection(book: book2, firstChapter: chapter2, lastChapter: nil)
-                let dailyReading = DailyReading(section1: section1, section2: section2, date: currentDate)
-                currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) ?? Date()
-                let weekday = Calendar.current.component(.weekday, from: currentDate)
+                let dailyReading = DailyReading(section1: section1, section2: section2, date: startingDate)
+                startingDate = Calendar.current.date(byAdding: .day, value: 1, to: startingDate) ?? Date()
                 
-                if(weekday == 1){
-                    currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) ?? Date()
-                }
+                
                 
                 readingPlan.append(dailyReading)
             }

@@ -13,7 +13,7 @@ struct DailyReading: Codable {
     let section1: BibleSection
     let section2: BibleSection
     var isReaded: Bool
-    let date: Date
+    var date: Date
     
     init(section1: BibleSection, section2: BibleSection, isReaded: Bool = false, date: Date) {
         self.section1 = section1
@@ -35,4 +35,9 @@ struct BibleSection: Codable, CustomStringConvertible  {
         }
         return text
     }
+}
+
+struct ReadingPlanSettings: Codable {
+    let initialDate: Date
+    let skipDays: [Int]
 }

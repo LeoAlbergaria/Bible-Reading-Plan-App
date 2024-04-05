@@ -42,9 +42,25 @@ class HomeViewController: UIViewController {
     
     @objc func settingsAction(){
         let viewController = SettingsViewControler()
+        viewController.viewModel = SettingsViewModel()
+        viewController.delegate = self
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
+
+// MARK: - SettingsViewControler Delegate
+
+extension HomeViewController: SettingsViewControlerDelegate {
+    func reloadData() {
+        viewModel?.reloadData(completion: { _ in
+            if let dailyPlan = self.viewModel?.getDailyPlan() {
+                self.baseView.configure(dailyPlan: dailyPlan)
+            }
+            self.baseView.tableView.reloadData()
+        })
+    }
+}
+
 
 // MARK: - UITableViewDataSource
 
@@ -55,6 +71,9 @@ extension HomeViewController: UITableViewDataSource {
         let indexPath = IndexPath(item: row, section: 0)
         tableView.reloadRows(at: [indexPath], with: .automatic)
         viewModel?.saveData()
+        if let dailyPlan = viewModel?.getDailyPlan() {
+            self.baseView.configure(dailyPlan: dailyPlan)
+        }
     }
 }
 
