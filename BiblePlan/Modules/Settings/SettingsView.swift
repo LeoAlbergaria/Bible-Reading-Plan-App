@@ -19,6 +19,7 @@ class SettingsView: UIView {
     lazy var datePickerLabel: UILabel = {
         let label = UILabel()
         label.text = "Select starting date:"
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,6 +45,7 @@ class SettingsView: UIView {
     lazy var weekSkipLabel: UILabel = {
         let label = UILabel()
         label.text = "Select days to skip:"
+        label.textColor = .black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

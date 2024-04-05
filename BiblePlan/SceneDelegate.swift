@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navigationController.navigationBar.tintColor = viewController.traitCollection.userInterfaceStyle == .light ? .black : .white
+        navigationController.navigationBar.tintColor = viewController.traitCollection.userInterfaceStyle == .light ? .black : .main
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
